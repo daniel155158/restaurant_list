@@ -2,7 +2,8 @@ const express = require('express')
 const app = express()
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
-const restaurantList = require('./restaurant.json')
+const Restaurant = require('./models/restaurant')
+// const restaurantList = require('./restaurant.json')
 const port = 3000
 
 // 僅在非正式環境時, 使用 dotenv
@@ -23,7 +24,10 @@ app.use(express.static('public'))
 
 // Route setting for root
 app.get('/', (req, res) => {
-  res.render('index', { restaurant: restaurantList.results })
+  Restaurant.find()
+    .lean()
+    .then(restaurants => res.render('index', { restaurants }))
+    .catch(error => console.log(error))
 })
 // Route setting for show page
 app.get('/restaurants/:id', (req, res) => {
