@@ -41,11 +41,13 @@ app.post('/restaurants/new', (req, res) => {
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
-// Route setting for show page
-app.get('/restaurants/:id', (req, res) => {
-  const restaurants = restaurantList.results
-  const restaurant = restaurants.find(restaurant => restaurant.id.toString() === req.params.id)
-  res.render('show', { restaurant: restaurant })
+// Route setting for show page (detail)
+app.get('/restaurants/:_id', (req, res) => {
+  const id = req.params._id
+  return Restaurant.findById(id)
+    .lean()
+    .then(restaurant => res.render('show', { restaurant }))
+    .catch(error => console.log(error))
 })
 // Route setting for search (by name or category)
 app.get('/search', (req, res) => {
