@@ -2,11 +2,11 @@ const express = require('express')
 const app = express()
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 const Restaurant = require('./models/restaurant')
-// const restaurantList = require('./restaurant.json')
 const port = 3000
 
-// 僅在非正式環境時, 使用 dotenv
+// 在非正式環境時使用dotenv
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
@@ -22,11 +22,23 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 
+// Body-parser setting
+app.use(bodyParser.urlencoded({ extended: true }))
+
 // Route setting for root
 app.get('/', (req, res) => {
   Restaurant.find()
     .lean()
     .then(restaurants => res.render('index', { restaurants }))
+    .catch(error => console.log(error))
+})
+// Route setting for new page
+app.get('/restaurants/new', (req, res) => {
+  res.render('new')
+})
+app.post('/restaurants/new', (req, res) => {
+  return Restaurant.create(req.body) // 從req.body拿出new表單裡的資料
+    .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 // Route setting for show page
