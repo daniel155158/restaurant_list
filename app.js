@@ -37,7 +37,7 @@ app.get('/restaurants/new', (req, res) => {
   res.render('new')
 })
 app.post('/restaurants/new', (req, res) => {
-  return Restaurant.create(req.body) // 從req.body拿出new表單裡的資料
+  return Restaurant.create(req.body)
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
@@ -47,6 +47,22 @@ app.get('/restaurants/:_id', (req, res) => {
   return Restaurant.findById(id)
     .lean()
     .then(restaurant => res.render('show', { restaurant }))
+    .catch(error => console.log(error))
+})
+// Route setting for edit
+app.get('/restaurants/edit/:_id', (req, res) => {
+  const id = req.params._id
+  return Restaurant.findById(id)
+    .lean()
+    .then(restaurant => res.render('edit', { restaurant }))
+    .catch(error => console.log(error))
+})
+app.post('/restaurants/edit/:_id', (req, res) => {
+  const id = req.params._id
+  const editRestaurant = req.body
+  console.log(editRestaurant)
+  return Restaurant.updateOne({ _id: id }, editRestaurant)
+    .then(() => res.redirect(`/restaurants/edit/${id}`))
     .catch(error => console.log(error))
 })
 // Route setting for search (by name or category)
