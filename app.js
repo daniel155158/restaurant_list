@@ -67,17 +67,22 @@ app.post('/restaurants/:_id/edit', (req, res) => {
 // Route setting for delete
 app.post('/restaurants/:_id/delete', (req, res) => {
   const id = req.params._id
-  return Restaurant.remove({ _id: id })
+  return Restaurant.deleteOne({ _id: id })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
-
 // Route setting for search (by name or category)
 app.get('/search', (req, res) => {
-  let keyword = req.query.keyword.trim()
-  const restaurants = restaurantList.results
-  const restaurant = restaurants.filter(restaurant => restaurant.name.toLowerCase().includes(keyword.toLowerCase()) || restaurant.category.toLowerCase().includes(keyword.toLowerCase()))
-  res.render('index', { restaurant: restaurant, keyword: keyword })
+  let keyword = req.query.keyword.trim().toLowerCase()
+  Restaurant.find()
+    .lean()
+    .then(restaurantList => {
+      const restaurants = restaurantList.filter(restaurant => {
+        return restaurant.name.toLowerCase().includes(keyword) || restaurant.category.toLowerCase().includes(keyword)
+      })
+      res.render('index', { restaurants, keyword })
+    })
+    .catch(error => console.log(error))
 })
 
 app.listen(port, () => {
