@@ -50,21 +50,28 @@ app.get('/restaurants/:_id', (req, res) => {
     .catch(error => console.log(error))
 })
 // Route setting for edit
-app.get('/restaurants/edit/:_id', (req, res) => {
+app.get('/restaurants/:_id/edit', (req, res) => {
   const id = req.params._id
   return Restaurant.findById(id)
     .lean()
     .then(restaurant => res.render('edit', { restaurant }))
     .catch(error => console.log(error))
 })
-app.post('/restaurants/edit/:_id', (req, res) => {
+app.post('/restaurants/:_id/edit', (req, res) => {
   const id = req.params._id
   const editRestaurant = req.body
-  console.log(editRestaurant)
   return Restaurant.updateOne({ _id: id }, editRestaurant)
-    .then(() => res.redirect(`/restaurants/edit/${id}`))
+    .then(() => res.redirect(`/restaurants/${id}/edit`))
     .catch(error => console.log(error))
 })
+// Route setting for delete
+app.post('/restaurants/:_id/delete', (req, res) => {
+  const id = req.params._id
+  return Restaurant.remove({ _id: id })
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 // Route setting for search (by name or category)
 app.get('/search', (req, res) => {
   let keyword = req.query.keyword.trim()

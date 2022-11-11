@@ -45,14 +45,14 @@
             </div>
           </a>
           <div class="card-crud mb-1 d-flex justify-content-evenly align-items-center">
-            <a href="/restaurants/edit/{{ this._id }}">Edit</a>
+            <a href="/restaurants/{{ this._id }}/edit">Edit</a>
             <a href="/restaurants/{{ this._id }}">Detail</a>
-            <button type="submit" class="btn btn-outline-danger">Delete</button>
+            <form action="/restaurants/{{ this._id }}/delete" method="POST" style="display: inline">
+              <button type="submit" class="btn btn-outline-danger">Delete</button>
+            </form>
           </div>
         </div>
         {{/each}}
-
-
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 <div class="container mt-3 ms-5">
-  <form action="/restaurants/edit/{{restaurant._id}}" method="POST">
+  <form action="/restaurants/{{restaurant._id}}/edit" method="POST">
     <div class="d-flex flex-column col-5 mb-2">
       <label for="name" class="fw-bold">Name (必填)</label>
       <input type="text" class="form-control" id="name" name="name" placeholder="請輸入餐廳的店名" value="{{restaurant.name}}"
