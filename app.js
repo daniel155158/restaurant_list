@@ -4,6 +4,7 @@ const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const Restaurant = require('./models/restaurant')
+const methodOverride = require('method-override')
 const port = 3000
 
 // 在非正式環境時使用dotenv
@@ -21,6 +22,7 @@ db.once('open', () => console.log('mongodb connected!'))
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(express.static('public'))
+app.use(methodOverride('_method'))
 
 // Body-parser setting
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -57,7 +59,7 @@ app.get('/restaurants/:_id/edit', (req, res) => {
     .then(restaurant => res.render('edit', { restaurant }))
     .catch(error => console.log(error))
 })
-app.post('/restaurants/:_id/edit', (req, res) => {
+app.put('/restaurants/:_id', (req, res) => {
   const id = req.params._id
   const editRestaurant = req.body
   return Restaurant.updateOne({ _id: id }, editRestaurant)
@@ -65,7 +67,7 @@ app.post('/restaurants/:_id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 // Route setting for delete
-app.post('/restaurants/:_id/delete', (req, res) => {
+app.delete('/restaurants/:_id', (req, res) => {
   const id = req.params._id
   return Restaurant.deleteOne({ _id: id })
     .then(() => res.redirect('/'))

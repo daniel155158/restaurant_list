@@ -47,7 +47,7 @@
           <div class="card-crud mb-1 d-flex justify-content-evenly align-items-center">
             <a href="/restaurants/{{ this._id }}/edit">Edit</a>
             <a href="/restaurants/{{ this._id }}">Detail</a>
-            <form action="/restaurants/{{ this._id }}/delete" method="POST" style="display: inline">
+            <form action="/restaurants/{{ this._id }}?_method=DELETE" method="POST" style="display: inline">
               <button type="submit" class="btn btn-outline-danger">Delete</button>
             </form>
           </div>
