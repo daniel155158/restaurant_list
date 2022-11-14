@@ -28,7 +28,7 @@
     <div class="col-md-10 col-12 mx-auto">
       <div class="row row-cols-sm-3">
         {{#each restaurants}}
-        <div class="card-container mb-3">
+        <div class="card-container">
           <a href="/restaurants/{{ this._id }}" class="text-secondary">
             <div class="card mb-1">
               <img class="card-img-top" src="{{ this.image }}" alt="{{ this.name }}">
@@ -42,15 +42,15 @@
                   <i class="fas fa-star fa-xs"></i>
                 </span>
               </div>
+              <div class="card-footer mb-1 d-flex justify-content-evenly align-items-center">
+                <a href="/restaurants/{{ this._id }}/edit">Edit</a>
+                <a href="/restaurants/{{ this._id }}">Detail</a>
+                <form action="/restaurants/{{ this._id }}?_method=DELETE" method="POST" style="display: inline">
+                  <button type="submit" class="btn btn-outline-danger">Delete</button>
+                </form>
+              </div>
             </div>
           </a>
-          <div class="card-crud mb-1 d-flex justify-content-evenly align-items-center">
-            <a href="/restaurants/{{ this._id }}/edit">Edit</a>
-            <a href="/restaurants/{{ this._id }}">Detail</a>
-            <form action="/restaurants/{{ this._id }}?_method=DELETE" method="POST" style="display: inline">
-              <button type="submit" class="btn btn-outline-danger">Delete</button>
-            </form>
-          </div>
         </div>
         {{/each}}
       </div>
