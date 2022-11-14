@@ -1,18 +1,8 @@
-const mongoose = require('mongoose')
 const Restaurant = require('../restaurant')
 const restaurants = require('./restaurant.json').results
+const db = require('../../config/mongoose')
 
-// 僅在非正式環境時, 使用 dotenv
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
-
-// Mongoose setting
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-const db = mongoose.connection
-db.on('error', () => console.log('mongodb error!'))
 db.once('open', () => {
-  console.log('mongodb connected!')
   restaurants.forEach(function (restaurant) {
     Restaurant.create({
       name: restaurant.name,
