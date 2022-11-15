@@ -6,6 +6,7 @@
 * 使用者可以編輯餐廳資訊。
 * 使用者可以點擊餐廳查看詳細資料，例如：地址及連絡電話等等。
 * 使用者可以輸入關鍵字(餐廳名稱及類別)查詢餐廳。
+* 使用者可以餐廳名稱、類別及地址做排序。
 
 ## 如何安裝
 1. 打開你的terminal並且clone 此專案至本機電腦
@@ -34,6 +35,10 @@ The express is listening on http://localhost:3000
 ## 開發工具
 * Node.js
 * Express
-* Express-handlebars
+* Express-handlebars 
 * MongoDB
 * Mongoose
+* Method-override
+* Dotenv
+* Bootstrap
+* Font awesome
