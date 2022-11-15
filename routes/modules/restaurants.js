@@ -31,7 +31,7 @@ router.put('/:_id', (req, res) => {
   const id = req.params._id
   const editRestaurant = req.body
   return Restaurant.findByIdAndUpdate(id, editRestaurant)
-    .then(() => res.redirect(`/restaurants/${id}/edit`))
+    .then(() => res.redirect(`/restaurants/${id}`))
     .catch(error => console.log(error))
 })
 // Route setting for delete
