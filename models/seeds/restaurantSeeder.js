@@ -18,3 +18,11 @@ db.once('open', () => {
   })
   console.log('done!')
 })
+
+//助教提供的insertMany寫法
+// db.once('open', () => {
+//   Restaurant.insertMany(restaurants)
+//     .then(() => console.log('done!'))
+//     .catch(error => console.log(error))
+
+// })
