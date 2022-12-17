@@ -4,6 +4,7 @@ const exphbs = require('express-handlebars')
 require('./config/mongoose')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
+const session = require('express-session')
 const routes = require('./routes')
 const port = 3000
 
@@ -15,6 +16,11 @@ app.use(express.static('public'))
 // Body-parser setting
 app.use(bodyParser.urlencoded({ extended: true }))
 
+app.use(session({
+  secret: 'MySecret',
+  resave: false,
+  saveUninitialized: true
+}))
 app.use(methodOverride('_method'))
 app.use(routes)
 
