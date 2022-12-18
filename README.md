@@ -1,7 +1,8 @@
 # 餐廳清單
-此專案提供使用者精選餐廳清單，使用者可以新增及刪除餐廳、查看及編輯餐廳詳細資訊以及透過搜尋關鍵字查詢餐廳。
+使用者使用信箱註冊之後，即可透過此專案新增及刪除餐廳資訊、查看及編輯餐廳詳細資訊以及透過搜尋關鍵字查詢餐廳。
 
 ## 功能說明
+* 使用者可以透過信箱註冊帳號，也可以透過Facebook帳號登入。
 * 使用者可以新增及刪除餐廳。
 * 使用者可以編輯餐廳資訊。
 * 使用者可以點擊餐廳查看詳細資料，例如：地址及連絡電話等等。
@@ -42,3 +43,7 @@ The express is listening on http://localhost:3000
 * Dotenv
 * Bootstrap
 * Font awesome
+* Bcryptjs
+* Connect-flash
+* Express-session
+* Passport (local/facebook)
