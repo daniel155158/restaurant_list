@@ -3,7 +3,10 @@ const router = express.Router()
 const User = require('../../models/user')
 const passport = require('passport')
 // 登入
-router.get('/login', passport.authenticate('local', {
+router.get('/login', (req, res) => {
+  res.render('login')
+})
+router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/users/login'
 }))
