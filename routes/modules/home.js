@@ -13,8 +13,9 @@ router.get('/', (req, res) => {
 })
 // Route setting for search (by name or category)
 router.get('/search', (req, res) => {
+  const userID = req.user._id
   let keyword = req.query.keyword.trim().toLowerCase()
-  Restaurant.find()
+  Restaurant.find({ userID })
     .lean()
     .then(restaurantList => {
       const restaurants = restaurantList.filter(restaurant => {
@@ -26,8 +27,9 @@ router.get('/search', (req, res) => {
 })
 // Route setting for sort
 router.get('/sort', (req, res) => {
+  const userID = req.user._id
   const { item, order } = req.query
-  Restaurant.find()
+  Restaurant.find({ userID })
     .lean()
     .sort([[`${item}`, `${order}`]])
     .then(restaurants => res.render('index', { restaurants }))
