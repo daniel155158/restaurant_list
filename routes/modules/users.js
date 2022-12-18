@@ -8,11 +8,13 @@ router.get('/login', (req, res) => {
 })
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
-  failureRedirect: '/users/login'
+  failureRedirect: '/users/login',
+  failureFlash: true
 }))
 // 登出
 router.get('/logout', (req, res) => {
   req.logout()
+  req.flash('success_msg', '你已成功登出。')
   res.redirect('/users/login')
 })
 // 註冊
