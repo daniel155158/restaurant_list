@@ -8,7 +8,7 @@ const flash = require('connect-flash')
 const session = require('express-session')
 const usePassport = require('./config/passport')
 const routes = require('./routes')
-const port = 3000
+const PORT = process.env.PORT
 
 // Template engine setting
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
@@ -19,7 +19,7 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(session({
-  secret: 'MySecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
@@ -36,6 +36,6 @@ app.use((req, res, next) => {
 })
 app.use(routes)
 
-app.listen(port, () => {
-  console.log(`The express is listening on http://localhost:${port}`)
+app.listen(PORT, () => {
+  console.log(`The express is listening on http://localhost:${PORT}`)
 })
